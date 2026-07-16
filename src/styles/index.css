@@ -1,11 +1,758 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  font-family: Roboto, Arial, sans-serif;
+  color: #111;
+  background: #fafafa;
+  font-synthesis: none;
+}
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  width: 1440px;
+html {
+  scroll-behavior: smooth;
 }
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: #fafafa;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 140px 60px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 832px) 288px;
+  align-items: start;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.heroTitle {
+  min-width: 0;
+  margin: 0;
+
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -1px;
+}
+
+.heroTitle span {
+  display: block;
+  white-space: nowrap;
+}
+
+
+
+
+.heroSticker {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 288px;
+  min-height: 102px;
+  padding: 16px 20px;
+
+  border-radius: 5px;
+  background: #bcec30;
+}
+
+.heroSticker p {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  position: relative;
+  z-index: 1;
+}
+
+.heroArrow {
+  position: absolute;
+  right: 133px;
+  bottom: -17px;
+
+  width: 30px;
+  height: 35px;
+  z-index: 0;
+}
+
+
+
+
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.courseCard {
+  background: white;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px #00000012;
+}
+
+.cardImageLink {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.cardImageLink img {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0 0 30px 30px;
+}
+
+.cardImageLink .addIcon {
+  position: absolute;
+right: 20px;
+top: 20px;
+width: 32px;
+height: 32px;
+}
+
+.cardBody {
+  padding: 20px 20px 24px;
+}
+
+.cardBody h2 {
+  font-size: 28px;
+  margin: 0 0 18px;
+}
+
+.courseMeta {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  align-self: stretch;
+}
+
+.courseMeta_calendar{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 6px;
+    border-radius: 50px;
+    background: #F7F7F7;
+}
+
+.courseMeta_time{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 6px;
+    border-radius: 50px;
+    background: #F7F7F7;
+}
+
+.difficulty {
+  display: inline-flex;
+  width: fit-content;
+  padding: 10px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 50px;
+  background: #F7F7F7;
+  margin-top:6px;
+}
+
+
+
+.primaryButton,
+.secondaryButton {
+  width: 100%;
+  border-radius: 24px;
+  padding: 12px 20px;
+  border: 0;
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: #bcec30;
+}
+
+.primaryButton:disabled {
+  opacity: .55;
+}
+
+.secondaryButton {
+  background: white;
+  border: 1px solid #111;
+}
+
+.cardAction {
+  margin-top: 16px;
+}
+
+.toTop {
+  display: block;
+  margin: 40px auto 0;
+  border: 0;
+  border-radius: 20px;
+  background: #bcec30;
+  padding: 11px 24px;
+  cursor: pointer;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #ddd;
+  border-top-color: #bcec30;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 80px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pageError,
+.formError {
+  color: #c62828;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #0007;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.modal {
+   position: relative;
+
+  width: min(360px, calc(100vw - 32px));
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 40px;
+  border-radius: 30px;
+
+  background: #ffffff;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+}
+
+.modalClose {
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  border: 0;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.authLogo {
+  display: block;
+  width: 220px;
+  height: 35px;
+  margin: 0 auto;
+}
+
+.authFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.authActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.authFields input {
+  width: 100%;
+  height: 40px;
+  padding: 10px 16px;
+
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+
+  font-size: 16px;
+  outline: none;
+}
+
+.authFields input:focus {
+  border-color: #999;
+}
+
+.authActions button {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 16px;
+
+  border-radius: 46px;
+  font-size: 16px;
+}
+
+
+.authForm input,
+.progressInputs input {
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 13px;
+}
+
+.formError {
+  margin: 0;
+  color: #f04438;
+  font-size: 12px;
+  line-height: 110%;
+  text-align: center;
+}
+
+.authPage {
+  min-height: 100vh;
+  background: #ddd;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.authPage .authForm {
+  background: #fff;
+  width: min(420px, 100%);
+  padding: 38px;
+  border-radius: 24px;
+}
+
+.courseBanner {
+  height: 420px;
+  border-radius: 30px;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-start;
+  padding: 38px;
+  color: #fff;
+}
+
+.courseBanner h1 {
+  font-size: 60px;
+  margin: 0;
+}
+
+.sectionTitle {
+  font-size: 36px;
+  margin: 55px 0 25px;
+}
+
+.fitGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.fitItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #171923;
+  color: white;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.fitItem b {
+  font-size: 50px;
+  color: #bcec30;
+}
+
+.directions {
+  background: #bcec30;
+  border-radius: 22px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.courseCta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 55px;
+  padding: 40px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px #0001;
+  overflow: hidden;
+}
+
+.courseCta h2 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.courseCta div {
+  max-width: 55%;
+}
+
+.courseCta img {
+  max-width: 42%;
+}
+
+.profileTitle,
+.workoutTitle {
+  font-size: 48px;
+}
+
+.profileCard {
+  background: #fff;
+  border-radius: 26px;
+  box-shadow: 0 8px 24px #0001;
+  padding: 30px;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.profileAvatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  background: linear-gradient(#ddd 40%, #eee 40%);
+}
+
+.compact {
+  width: auto;
+  padding-inline: 28px;
+}
+
+.profileCourse {
+  position: relative;
+}
+
+.courseTools {
+  display: flex;
+  gap: 8px;
+  margin: 8px 12px;
+}
+
+.courseTools button {
+  flex: 1;
+  border: 0;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.progressLabel {
+  margin: 16px 0 6px;
+}
+
+.progressTrack {
+  height: 7px;
+  border-radius: 10px;
+  background: #eee;
+  overflow: hidden;
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  background: #22c8d6;
+}
+
+.workoutList {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.workoutList button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.workoutList b {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ccc;
+}
+
+.workoutList .done {
+  background: #bcec30;
+}
+
+.videoWrap {
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.videoWrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.exercisePanel {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 24px #0001;
+}
+
+.exerciseGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 25px 0;
+}
+
+.exerciseGrid p {
+  min-height: 38px;
+}
+
+.exerciseGrid span {
+  font-size: 13px;
+  color: #666;
+}
+
+.progressInputs {
+  display: grid;
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.progressInputs label {
+  display: grid;
+  gap: 8px;
+}
+
+@media (max-width: 1200px) {
+  .page {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 24px;
+  }
+
+  .heroTitle {
+    font-size: 44px;
+    line-height: 100%;
+  }
+
+  .heroTitle span {
+    white-space: normal;
+  }
+
+  .heroSticker {
+    width: 250px;
+    min-height: 90px;
+    padding: 14px 18px;
+  }
+
+  .heroSticker p {
+    font-size: 27px;
+  }
+
+  .coursesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fitGrid,
+  .directions,
+  .exerciseGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .courseCta h2 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 800px) {
+  .hero {
+    display: block;
+  }
+
+  .heroSticker {
+    display: none;
+  }
+
+  .heroTitle {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 0;
+  }
+
+    .page {
+    padding: 40px 16px;
+  }
+
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero {
+    display: block;
+    margin: 35px 0 20px;
+  }
+
+ .heroTitle {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 110%;
+    letter-spacing: 0;
+  }
+
+.heroTitle span {
+    display: inline;
+    white-space: normal;
+  }
+
+  .heroTitle span:first-child::after {
+    content: " ";
+  }
+
+
+
+  .heroSticker {
+    display: none;
+  }
+
+  .coursesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+   .cardImageLink {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .courseBanner {
+    height: 300px;
+  }
+
+  .courseBanner h1 {
+    font-size: 42px;
+  }
+
+  .sectionTitle {
+    margin-top: 38px;
+    font-size: 28px;
+  }
+
+  .fitGrid,
+  .directions,
+  .exerciseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .courseCta {
+    display: block;
+    padding: 25px;
+  }
+
+  .courseCta div {
+    max-width: 100%;
+  }
+
+  .courseCta h2 {
+    font-size: 34px;
+  }
+
+  .courseCta img {
+    display: block;
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .profileTitle,
+  .workoutTitle {
+    font-size: 36px;
+  }
+
+  .profileCard {
+    align-items: flex-start;
+  }
+
+  .profileAvatar {
+    width: 90px;
+    height: 100px;
+  }
+
+  .modal {
+    padding: 34px 22px;
+  }
+
+  .authLogo {
+    width: 180px;
+  }
+}
+

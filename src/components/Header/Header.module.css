@@ -1,26 +1,190 @@
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 
+  width: 100%;
+  margin-top: 40px;
 }
 
-.logo{
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+
+  color: #777;
+  text-decoration: none;
+}
+
+.brand img {
+  display: block;
+  width: 220px;
+  height: 35px;
+}
+
+.brand span {
+  padding: 0;
+  font-size: 18px;
+  line-height: 110%;
+}
+
+
+.loginButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 46px;
+  background: #bcec30;
+
+  color: #000;
+  font-size: 16px;
+  line-height: 110%;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.userWrap {
+  position: relative;
+}
+
+.profileIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+
+.arrowIcon {
+  width: 12px;
+  height: 8px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.arrowIconOpen {
+  transform: rotate(180deg);
+}
+
+
+
+.userName {
+  display: block;
+  max-width: 180px;
+  overflow: hidden;
+
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 110%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+
+  color: #000;
+  cursor: pointer;
+}
+
+
+
+
+
+.menu {
+  position: absolute;
+  z-index: 20;
+  top: 45px;
+  right: 0;
+
+  display: grid;
+  gap: 10px;
+
+  width: 240px;
+  padding: 18px;
+  border-radius: 16px;
+
+  background: #fff;
+  box-shadow: 0 8px 30px #0002;
+}
+
+.menu button {
+  padding: 10px;
+  border: 0;
+  border-radius: 10px;
+
+  background: #f4f4f4;
+  text-align: left;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+   .header {
+    align-items: center;
+    margin-top: 0;
+  }
+
+   .brand {
+    flex-direction: row;
+    flex-shrink: 0;
+    gap: 0;
+  }
+
+   .brand img {
     width: 220px;
     height: 35px;
-    text-decoration:none;
-    padding: 50px 0 0 140px;
+  }
+
+
+  .brand span {
+    display: none;
+  }
+
+ .loginButton {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+
+   .userButton {
+    gap: 8px;
+  }
+
+  .profileIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+   .userName {
+     display: none;
+  }
+
+   .arrowIcon {
+    width: 12px;
+    height: 8px;
+    
+  }
 }
 
-.subtitle{
-    color: #000;
-    font-variant-numeric: lining-nums proportional-nums;
-    padding-top: 15px;
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 110%;
-    opacity: 0.5;
+@media (max-width: 390px) {
+  .brand img {
+    width: 180px;
+    height: auto;
+  }
+
+  .loginButton {
+    padding: 7px 12px;
+    font-size: 14px;
+  }
 }
