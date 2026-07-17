@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 :root {
   font-family: Roboto, Arial, sans-serif;
@@ -28,12 +28,20 @@ input {
   font: inherit;
 }
 
+button {
+  color: inherit;
+}
+
 .page {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 140px 60px;
 }
+
+/* =========================
+   ГЛАВНАЯ СТРАНИЦА
+========================= */
 
 .hero {
   display: grid;
@@ -58,9 +66,6 @@ input {
   white-space: nowrap;
 }
 
-
-
-
 .heroSticker {
   position: relative;
 
@@ -77,26 +82,29 @@ input {
 }
 
 .heroSticker p {
+  position: relative;
+  z-index: 1;
+
   margin: 0;
+
   font-size: 32px;
   font-weight: 400;
   line-height: 110%;
-  position: relative;
-  z-index: 1;
 }
 
 .heroArrow {
   position: absolute;
   right: 133px;
   bottom: -17px;
+  z-index: 0;
 
   width: 30px;
   height: 35px;
-  z-index: 0;
 }
 
-
-
+/* =========================
+   СЕТКА КУРСОВ
+========================= */
 
 .coursesGrid {
   display: grid;
@@ -106,37 +114,42 @@ input {
 }
 
 .courseCard {
-  background: white;
-  border-radius: 28px;
   overflow: hidden;
+
+  border-radius: 28px;
+  background: #fff;
   box-shadow: 0 10px 28px #00000012;
 }
 
 .cardImageLink {
   position: relative;
-  display: block;
 
+  display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
+
   overflow: hidden;
 }
 
 .cardImageLink img {
   display: block;
+
   width: 100%;
   height: 100%;
 
   object-fit: cover;
   object-position: center;
+
   border-radius: 0 0 30px 30px;
 }
 
 .cardImageLink .addIcon {
   position: absolute;
-right: 20px;
-top: 20px;
-width: 32px;
-height: 32px;
+  top: 20px;
+  right: 20px;
+
+  width: 32px;
+  height: 32px;
 }
 
 .cardBody {
@@ -144,54 +157,54 @@ height: 32px;
 }
 
 .cardBody h2 {
-  font-size: 28px;
   margin: 0 0 18px;
+  font-size: 28px;
 }
 
 .courseMeta {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
   align-self: stretch;
+  gap: 6px;
 }
 
-.courseMeta_calendar{
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    gap: 6px;
-    border-radius: 50px;
-    background: #F7F7F7;
-}
+.courseMeta_calendar,
+.courseMeta_time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 
-.courseMeta_time{
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    gap: 6px;
-    border-radius: 50px;
-    background: #F7F7F7;
+  padding: 10px;
+
+  border-radius: 50px;
+  background: #f7f7f7;
 }
 
 .difficulty {
   display: inline-flex;
-  width: fit-content;
-  padding: 10px;
   align-items: center;
   gap: 6px;
+
+  width: fit-content;
+  margin-top: 6px;
+  padding: 10px;
+
   border-radius: 50px;
-  background: #F7F7F7;
-  margin-top:6px;
+  background: #f7f7f7;
 }
 
-
+/* =========================
+   КНОПКИ
+========================= */
 
 .primaryButton,
 .secondaryButton {
   width: 100%;
-  border-radius: 24px;
   padding: 12px 20px;
+
+  border-radius: 24px;
   border: 0;
+
   cursor: pointer;
 }
 
@@ -200,12 +213,15 @@ height: 32px;
 }
 
 .primaryButton:disabled {
-  opacity: .55;
+  cursor: default;
+  opacity: 0.55;
 }
 
 .secondaryButton {
-  background: white;
   border: 1px solid #111;
+  background: #fff;
+  padding: 16px 26px;
+  border-radius: 46px;
 }
 
 .cardAction {
@@ -214,22 +230,31 @@ height: 32px;
 
 .toTop {
   display: block;
+
   margin: 40px auto 0;
+  padding: 11px 24px;
+
   border: 0;
   border-radius: 20px;
+
   background: #bcec30;
-  padding: 11px 24px;
   cursor: pointer;
 }
+
+/* =========================
+   ЗАГРУЗКА И ОШИБКИ
+========================= */
 
 .loader {
   width: 48px;
   height: 48px;
+  margin: 80px auto;
+
   border: 5px solid #ddd;
   border-top-color: #bcec30;
   border-radius: 50%;
-  animation: spin .8s linear infinite;
-  margin: 80px auto;
+
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -243,39 +268,49 @@ height: 32px;
   color: #c62828;
 }
 
+/* =========================
+   МОДАЛЬНОЕ ОКНО
+========================= */
+
 .modalOverlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
-  background: #0007;
+  z-index: 1000;
   display: grid;
   place-items: center;
   padding: 20px;
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .modal {
-   position: relative;
-
-  width: min(360px, calc(100vw - 32px));
-  max-height: 90vh;
-  overflow-y: auto;
-
-  padding: 40px;
+  position: relative;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+  padding: 0;
   border-radius: 30px;
-
-  background: #ffffff;
-  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: transparent;
+  box-shadow: none;
 }
 
 .modalClose {
   position: absolute;
-  right: 14px;
-  top: 10px;
+  top: 14px;
+  right: 16px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
   border: 0;
-  background: none;
+  background: transparent;
   font-size: 30px;
+  line-height: 1;
   cursor: pointer;
 }
+
+/* =========================
+   АВТОРИЗАЦИЯ
+========================= */
 
 .authForm {
   display: flex;
@@ -285,17 +320,13 @@ height: 32px;
 
 .authLogo {
   display: block;
+
   width: 220px;
   height: 35px;
   margin: 0 auto;
 }
 
-.authFields {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+.authFields,
 .authActions {
   display: flex;
   flex-direction: column;
@@ -327,16 +358,16 @@ height: 32px;
   font-size: 16px;
 }
 
-
-.authForm input,
 .progressInputs input {
+  padding: 13px;
+
   border: 1px solid #d0d0d0;
   border-radius: 8px;
-  padding: 13px;
 }
 
 .formError {
   margin: 0;
+
   color: #f04438;
   font-size: 12px;
   line-height: 110%;
@@ -344,122 +375,286 @@ height: 32px;
 }
 
 .authPage {
-  min-height: 100vh;
-  background: #ddd;
   display: grid;
   place-items: center;
+
+  min-height: 100vh;
   padding: 20px;
+
+  background: #ddd;
 }
 
 .authPage .authForm {
-  background: #fff;
   width: min(420px, 100%);
   padding: 38px;
+
   border-radius: 24px;
+  background: #fff;
 }
+
+/* =========================
+   СТРАНИЦА ОТДЕЛЬНОГО КУРСА
+========================= */
 
 .courseBanner {
-  height: 420px;
+  width: 100%;
+  margin-top: 32px;
+
+  overflow: hidden;
   border-radius: 30px;
-  background-position: center;
-  background-size: cover;
-  display: flex;
-  align-items: flex-start;
-  padding: 38px;
-  color: #fff;
 }
 
-.courseBanner h1 {
-  font-size: 60px;
-  margin: 0;
+.courseBanner img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+  margin-top: 60px;
+}
+
+.courseSection {
+  width: 100%;
 }
 
 .sectionTitle {
-  font-size: 36px;
-  margin: 55px 0 25px;
+  margin: 40px 0 20px;
+
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 110%;
 }
 
 .fitGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .fitItem {
   display: flex;
   align-items: center;
-  gap: 15px;
-  background: #171923;
-  color: white;
-  border-radius: 20px;
+  gap: 16px;
+
+  min-height: 112px;
   padding: 20px;
+
+  border-radius: 28px;
+  background: #20222d;
+  color: #fff;
 }
 
 .fitItem b {
-  font-size: 50px;
+  flex-shrink: 0;
+
   color: #bcec30;
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.fitItem span {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 120%;
 }
 
 .directions {
-  background: #bcec30;
-  border-radius: 22px;
-  padding: 28px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px 36px;
+
+  padding: 28px;
+
+  border-radius: 30px;
+  background: #bcec30;
+}
+
+.directions span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 18px;
+  line-height: 120%;
 }
 
 .courseCta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 55px;
+  position: relative;
+
+  min-height: 486px;
+  margin-top: 104px;
   padding: 40px;
-  background: #fff;
+
   border-radius: 30px;
-  box-shadow: 0 10px 30px #0001;
-  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
+
+  overflow: visible;
+}
+
+.courseCtaContent {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  width: 437px;
+  max-width: 44%;
 }
 
 .courseCta h2 {
-  font-size: 50px;
   margin: 0;
+
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 116%;
 }
 
-.courseCta div {
-  max-width: 55%;
+.courseBenefits {
+  margin: 0;
+  padding-left: 30px;
+
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 24px;
+  line-height: 116%;
 }
 
-.courseCta img {
-  max-width: 42%;
+.courseBenefits li {
+  padding-bottom: 4px;
 }
+
+.courseCtaButton {
+  width: 437px;
+  max-width: 100%;
+  height: 52px;
+  margin-top: 0;
+
+  border-radius: 46px;
+}
+
+.courseMessage {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+/*
+ * Область, занимающая правую часть карточки.
+ * Она отвечает только за расположение общей композиции.
+ */
+.courseCtaVisual {
+  position: absolute;
+  top: -54px;
+  right: 20px;
+  z-index: 4;
+
+  width: min(48vw, 540px);
+  aspect-ratio: 520 / 540;
+
+  pointer-events: none;
+}
+
+/*
+ * Все три изображения используют одну систему координат:
+ * 520 × 540. При адаптации масштабируется весь этот контейнер.
+ */
+.courseCtaComposition {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* Зелёная линия — задний слой */
+.runnerGreen {
+  position: absolute;
+  right: -3%;
+  bottom: -4.5%;
+  z-index: 1;
+
+  display: block;
+  width: 108%;
+  height: auto;
+  max-width: none;
+}
+
+/* Чёрная дуга — между линией и бегуном */
+.runnerArc {
+  position: absolute;
+  top: 20%;
+  left: 12%;
+  z-index: 2;
+
+  display: block;
+
+  width: 18%;
+  height: auto;
+  max-width: none;
+
+  pointer-events: none;
+}
+
+/* Бегун — верхний основной слой */
+.runnerImage {
+  position: absolute;
+  top: 2%;
+  left: 3%;
+  z-index: 3;
+
+  display: block;
+
+  width: 94%;
+  height: auto;
+  max-width: none;
+
+  transform: rotate(-2.989deg);
+  transform-origin: center;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   ПРОФИЛЬ
+========================= */
 
 .profileTitle,
 .workoutTitle {
-  font-size: 48px;
+  font-size: 40px;
+  margin: 60px 0 40px 0;
 }
 
 .profileCard {
-  background: #fff;
-  border-radius: 26px;
-  box-shadow: 0 8px 24px #0001;
-  padding: 30px;
   display: flex;
-  gap: 25px;
   align-items: center;
+  gap: 25px;
+
+  padding: 30px;
+
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 8px 24px #0001;
 }
 
 .profileAvatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 12px;
-  background: linear-gradient(#ddd 40%, #eee 40%);
+  display: block;
+
+  width: 180px;
+  height: 180px;
+
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
-.compact {
-  width: auto;
-  padding-inline: 28px;
+.profileInfo{
+      display: flex;
+    flex-direction: column;
+    gap: 35px;
+    align-items: flex-start;
 }
+
+
 
 .profileCourse {
   position: relative;
@@ -468,14 +663,19 @@ height: 32px;
 .courseTools {
   display: flex;
   gap: 8px;
+
   margin: 8px 12px;
 }
 
 .courseTools button {
+  display:none;
   flex: 1;
-  border: 0;
+
   padding: 8px;
+
+  border: 0;
   border-radius: 10px;
+
   cursor: pointer;
 }
 
@@ -485,52 +685,197 @@ height: 32px;
 
 .progressTrack {
   height: 7px;
+
+  overflow: hidden;
+
   border-radius: 10px;
   background: #eee;
-  overflow: hidden;
 }
 
 .progressTrack span {
   display: block;
+
   height: 100%;
   background: #22c8d6;
 }
 
-.workoutList {
-  display: grid;
-  gap: 12px;
-  margin-top: 20px;
+/* =========================
+   ТРЕНИРОВКИ
+========================= */
+
+.workoutPicker {
+  display: flex;
+  width: 460px;
+  height: 609px;
+  padding: 40px;
+
+  flex-direction: column;
+  align-items: stretch;
+
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
 }
 
-.workoutList button {
+.workoutPickerTitle {
+  margin: 0 0 48px;
+  padding: 0 32px 0 0;
+
+  color: #000;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.5px;
+}
+
+.workoutPickerList {
+  width: 100%;
+  max-height: 280px;
+  padding-right: 8px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #000 transparent;
+}
+
+.workoutPickerList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.workoutPickerList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.workoutPickerList::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #000;
+}
+
+.workoutPickerItem {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background: #fff;
+  align-items: flex-start;
+  gap: 8px;
+
+  width: 100%;
+  min-height: 57px;
+  padding: 7px 0;
+
+  border: 0;
+  border-bottom: 1px solid #c4c4c4;
+  border-radius: 0;
+
+  background: transparent;
+  color: #000;
+
+  font-family: Roboto, Arial, sans-serif;
   text-align: left;
   cursor: pointer;
 }
 
-.workoutList b {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  border: 1px solid #ccc;
+.workoutPickerItem:first-child {
+  padding-top: 0;
 }
 
-.workoutList .done {
+.workoutPickerItem:last-child {
+  border-bottom: 0;
+}
+
+.workoutPickerRadio {
+  position: relative;
+
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+
+  flex: 0 0 18px;
+
+  border: 1.5px solid #000;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.workoutPickerRadio.selected {
+  border-color: #bcec30;
   background: #bcec30;
 }
 
+.workoutPickerRadio.selected::after {
+  content: "";
+
+  position: absolute;
+  top: 3px;
+  left: 4px;
+
+  width: 7px;
+  height: 4px;
+
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+
+  transform: rotate(-45deg);
+}
+
+.workoutPickerText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.workoutPickerName {
+  display: block;
+
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+}
+
+.workoutPickerDescription {
+  display: block;
+
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 110%;
+}
+
+.workoutPickerStart {
+  width: 100%;
+  height: 44px;
+  margin-top: auto;
+  flex-shrink: 0;
+
+  border: 0;
+  border-radius: 46px;
+
+  background: #bcec30;
+  color: #000;
+
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+
+  cursor: pointer;
+}
+
+.workoutPickerStart:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
 .videoWrap {
+
   aspect-ratio: 16 / 9;
-  border-radius: 24px;
+
   overflow: hidden;
+
+  border-radius: 24px;
   background: #ddd;
 }
 
@@ -542,9 +887,10 @@ height: 32px;
 
 .exercisePanel {
   margin-top: 30px;
-  background: #fff;
-  border-radius: 24px;
   padding: 28px;
+
+  border-radius: 24px;
+  background: #fff;
   box-shadow: 0 8px 24px #0001;
 }
 
@@ -552,6 +898,7 @@ height: 32px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+
   margin: 25px 0;
 }
 
@@ -560,13 +907,14 @@ height: 32px;
 }
 
 .exerciseGrid span {
-  font-size: 13px;
   color: #666;
+  font-size: 13px;
 }
 
 .progressInputs {
   display: grid;
   gap: 18px;
+
   margin: 24px 0;
 }
 
@@ -574,6 +922,10 @@ height: 32px;
   display: grid;
   gap: 8px;
 }
+
+/* =========================
+   ПЛАНШЕТ И НЕБОЛЬШОЙ ДЕСКТОП
+========================= */
 
 @media (max-width: 1200px) {
   .page {
@@ -609,16 +961,66 @@ height: 32px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .fitGrid,
+  .fitGrid {
+    grid-template-columns: 1fr;
+  }
+
   .directions,
   .exerciseGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .courseCta {
+    min-height: 430px;
+    margin-top: 80px;
+    padding: 32px;
+  }
+
+  .courseCtaContent {
+    width: 48%;
+    max-width: 48%;
   }
 
   .courseCta h2 {
-    font-size: 38px;
+    font-size: 46px;
   }
+
+  .courseBenefits {
+    font-size: 18px;
+  }
+
+  .courseCtaButton {
+    width: 100%;
+  }
+
+  .courseCtaVisual {
+    top: -30px;
+    right: -20px;
+
+    width: min(51vw, 470px);
+  }
+
+  .runnerGreen{
+    right: 9%;
+    bottom: 6.5%;
+    width: 457px;
+  }
+
+  .runnerImage {
+    width: 425px;
+    top: -23px;
+    left: -21px;
+  }
+
+  .runnerArc {
+        width: 63px;
+        left: 37px;
+        top: 88px;
+ }
 }
+/* =========================
+   ПЛАНШЕТ
+========================= */
 
 @media (max-width: 800px) {
   .hero {
@@ -632,26 +1034,43 @@ height: 32px;
   .heroTitle {
     max-width: 650px;
   }
+
+  .courseCta {
+    min-height: 380px;
+    margin-top: 64px;
+    padding: 28px;
+  }
+
+  .courseCtaContent {
+    width: 55%;
+    padding: 0;
+  }
+
+  .courseCta h2 {
+    font-size: 40px;
+  }
+
+  .courseBenefits {
+    font-size: 16px;
+  }
+
+  .courseCtaImage {
+    top: -10px;
+    right: -80px;
+
+    transform: scale(0.72);
+    transform-origin: right top;
+  }
 }
 
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
 @media (max-width: 600px) {
-  body {
-    margin: 0;
-  }
-
-    .page {
-    padding: 40px 16px;
-  }
-
-
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+  .page {
     width: 100%;
-    margin: 0;
-    padding: 0;
+    padding: 40px 16px;
   }
 
   .hero {
@@ -659,7 +1078,7 @@ height: 32px;
     margin: 35px 0 20px;
   }
 
- .heroTitle {
+  .heroTitle {
     width: 100%;
     max-width: none;
     margin: 0;
@@ -670,7 +1089,7 @@ height: 32px;
     letter-spacing: 0;
   }
 
-.heroTitle span {
+  .heroTitle span {
     display: inline;
     white-space: normal;
   }
@@ -678,8 +1097,6 @@ height: 32px;
   .heroTitle span:first-child::after {
     content: " ";
   }
-
-
 
   .heroSticker {
     display: none;
@@ -690,47 +1107,231 @@ height: 32px;
     gap: 20px;
   }
 
-   .cardImageLink {
+  .cardImageLink {
     height: auto;
     aspect-ratio: 1 / 1;
   }
 
-  .courseBanner {
-    height: 300px;
+   .courseBanner {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    margin-top: 24px;
+    overflow: hidden;
+    border-radius: 30px;
   }
 
-  .courseBanner h1 {
-    font-size: 42px;
+   .courseBanner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin-top: 0px;
   }
 
   .sectionTitle {
-    margin-top: 38px;
+    margin: 36px 0 20px;
+
     font-size: 28px;
+    line-height: 110%;
   }
 
-  .fitGrid,
-  .directions,
-  .exerciseGrid {
+  .fitGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
+
+  .fitItem {
+    min-height: 100px;
+    padding: 18px;
+
+    border-radius: 24px;
+  }
+
+  .fitItem b {
+    font-size: 48px;
+  }
+
+  .fitItem span {
+    font-size: 16px;
+  }
+
+  .directions {
+    grid-template-columns: 1fr;
+    gap: 16px;
+
+    padding: 24px;
+
+    border-radius: 24px;
+  }
+
+  .directions span {
+    font-size: 16px;
+  }
+
+  /* =========================
+     CTA С БЕГУНОМ
+  ========================= */
 
   .courseCta {
-    display: block;
-    padding: 25px;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: 0;
+    margin-top: 40px;
+    padding: 0;
+
+    overflow: visible;
+
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
-  .courseCta div {
-    max-width: 100%;
+  /* Верхняя композиция */
+  .courseCtaVisual {
+    position: relative;
+    height: 420px;
+    margin-top: -90px;   /* подняли композицию */
+    z-index: 1;
+}
+
+  .courseCtaComposition {
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 390px;
+    height: 405px;
+
+    transform: translateX(-50%);
+  }
+
+  .runnerGreen {
+    position: absolute;
+    right: -42px;
+    bottom: -8px;
+    z-index: 1;
+
+    display: block;
+
+    width: 440px;
+    height: auto;
+    max-width: none;
+  }
+
+  .runnerArc {
+    position: absolute;
+    top: 85px;
+    left: 40px;
+    z-index: 2;
+
+    display: block;
+
+    width: 72px;
+    height: auto;
+    max-width: none;
+  }
+
+  .runnerImage {
+    position: absolute;
+
+    top: -18px;      /* было 20-30px */
+    left: 171px;
+
+    width: 340px;
+    height: auto;
+
+    z-index: 3;
+}
+
+.runnerGreen {
+    position: absolute;
+
+    top: 133px;
+    right: -92px;
+    width: 456px;
+
+    z-index: 1;
+}
+
+.runnerArc {
+    position: absolute;
+
+    top: 60px;
+    left: 236px;
+    width: 39px;
+
+    z-index: 4;
+}
+
+  /* Белая карточка под композицией */
+  .courseCtaContent {
+    position: relative;
+    z-index: 5;
+
+    order: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+
+    width: 100%;
+    max-width: none;
+    margin: -145px 0 0;
+    padding: 30px;
+
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
   }
 
   .courseCta h2 {
-    font-size: 34px;
+    width: 100%;
+    margin: 0;
+
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 110%;
   }
 
-  .courseCta img {
-    display: block;
-    max-width: 90%;
-    margin: auto;
+  .courseBenefits {
+    width: 100%;
+    margin: 0;
+    padding-left: 24px;
+
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+    line-height: 130%;
+  }
+
+  .courseBenefits li {
+    padding-bottom: 6px;
+    font-size: 16px;
+  }
+
+  .courseCtaButton {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+
+    border-radius: 46px;
+  }
+
+  .courseMessage {
+    width: 100%;
+    margin-top: 0;
+
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .courseTools{
+    display:none
   }
 
   .profileTitle,
@@ -739,20 +1340,109 @@ height: 32px;
   }
 
   .profileCard {
-    align-items: flex-start;
+    align-items: center;
+    flex-direction: column;
   }
 
   .profileAvatar {
-    width: 90px;
-    height: 100px;
+  display: block;
+
+  width: 180px;
+  height: 180px;
+
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+  .profileInfo{
+      align-items: flex-start;
+      gap: 20px;
+  }
+ 
+
+
+  .exerciseGrid {
+    grid-template-columns: 1fr;
   }
 
-  .modal {
-    padding: 34px 22px;
+  .modalOverlay {
+    padding: 16px;
   }
+
+  .modalClose {
+    top: 12px;
+    right: 14px;
+  }
+
+  .workoutPicker {
+    width: min(343px, calc(100vw - 32px));
+    height: auto;
+    max-height: calc(100vh - 32px);
+    padding: 30px;
+    gap: 34px;
+  }
+
+  .workoutPickerTitle {
+    max-width: 250px;
+    padding-right: 28px;
+    font-size: 32px;
+    line-height: 95%;
+  }
+
+  .workoutPickerList {
+    max-height: 280px;
+    padding-right: 8px;
+  }
+
+  .workoutPickerName { font-size: 18px; }
+  .workoutPickerDescription { font-size: 12px; }
 
   .authLogo {
     width: 180px;
+    height: auto;
   }
 }
 
+@media (max-width: 390px) {
+  
+
+  .courseCtaVisual {
+    height: 350px;
+  }
+
+  .courseCtaComposition {
+    width: 350px;
+    height: 365px;
+  }
+
+  .runnerGreen {
+    right: -19px;
+    bottom: -6px;
+    width: 395px;
+  }
+
+  .runnerArc {
+    top: 77px;
+    left: 38px;
+    width: 64px;
+  }
+
+  .runnerImage {
+    top: -22px;
+    left: 72px;
+    width: 318px;
+  }
+
+  .courseCtaContent {
+    margin-top: -125px;
+    padding: 24px;
+  }
+
+  .courseCta h2 {
+    font-size: 30px;
+  }
+
+  .courseBenefits {
+    font-size: 16px;
+  }
+}
