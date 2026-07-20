@@ -10,6 +10,8 @@ type WorkoutPickerProps = {
   onClose: () => void;
 };
 
+type UnknownRecord = Record<string, unknown>;
+
 function getWorkoutText(name: string) {
   const parts = name
     .split("/")
@@ -18,13 +20,115 @@ function getWorkoutText(name: string) {
 
   return {
     title: parts[0] ?? name,
-
-    // Автор обычно находится в последней части, поэтому его не показываем
     description:
       parts.length > 2
         ? parts.slice(1, -1).join(" / ")
         : parts.slice(1).join(" / "),
   };
+}
+
+/**
+ * Приводит разные варианты ID от API к одной строке.
+ *
+ * Поддерживает:
+ * workoutId: "123"
+ * workoutId: { _id: "123" }
+ * workout: { _id: "123" }
+ * _id: "123"
+ */
+function getProgressWorkoutId(item: WorkoutProgress): string {
+  const data = item as unknown as UnknownRecord;
+
+  const directWorkoutId = data.workoutId;
+
+  if (
+    typeof directWorkoutId === "string" ||
+    typeof directWorkoutId === "number"
+  ) {
+    return String(directWorkoutId);
+  }
+
+  if (
+    directWorkoutId &&
+    typeof directWorkoutId === "object"
+  ) {
+    const workoutObject =
+      directWorkoutId as UnknownRecord;
+
+    if (
+      typeof workoutObject._id === "string" ||
+      typeof workoutObject._id === "number"
+    ) {
+      return String(workoutObject._id);
+    }
+
+    if (
+      typeof workoutObject.id === "string" ||
+      typeof workoutObject.id === "number"
+    ) {
+      return String(workoutObject.id);
+    }
+  }
+
+  const nestedWorkout = data.workout;
+
+  if (
+    nestedWorkout &&
+    typeof nestedWorkout === "object"
+  ) {
+    const workoutObject =
+      nestedWorkout as UnknownRecord;
+
+    if (
+      typeof workoutObject._id === "string" ||
+      typeof workoutObject._id === "number"
+    ) {
+      return String(workoutObject._id);
+    }
+
+    if (
+      typeof workoutObject.id === "string" ||
+      typeof workoutObject.id === "number"
+    ) {
+      return String(workoutObject.id);
+    }
+  }
+
+  return "";
+}
+
+function getIsWorkoutCompleted(
+  item: WorkoutProgress | undefined,
+): boolean {
+  if (!item) {
+    return false;
+  }
+
+  const data = item as unknown as UnknownRecord;
+  const completed = data.workoutCompleted;
+
+  if (
+    completed === true ||
+    completed === 1 ||
+    completed === "true"
+  ) {
+    return true;
+  }
+
+  const progressData = data.progressData;
+
+  if (Array.isArray(progressData)) {
+    return (
+      progressData.length > 0 &&
+      progressData.every(
+        (value) =>
+          typeof value === "number" &&
+          value > 0,
+      )
+    );
+  }
+
+  return false;
 }
 
 export function WorkoutPicker({
@@ -36,7 +140,7 @@ export function WorkoutPicker({
   const navigate = useNavigate();
 
   const [selectedWorkoutId, setSelectedWorkoutId] =
-    useState<string>("");
+    useState("");
 
   const handleStart = () => {
     if (!selectedWorkoutId) {
@@ -44,7 +148,10 @@ export function WorkoutPicker({
     }
 
     onClose();
-    navigate(`/workout/${courseId}/${selectedWorkoutId}`);
+
+    navigate(
+      `/workout/${courseId}/${selectedWorkoutId}`,
+    );
   };
 
   return (
@@ -55,15 +162,26 @@ export function WorkoutPicker({
 
       <div className="workoutPickerList">
         {workouts.map((workout) => {
-          const workoutText = getWorkoutText(workout.name);
+          const workoutText =
+            getWorkoutText(workout.name);
+
+          const currentWorkoutId =
+            String(workout._id);
+
+          const workoutProgress = progress.find(
+            (item) =>
+              getProgressWorkoutId(item) ===
+              currentWorkoutId,
+          );
 
           const isCompleted =
-            progress.find(
-              (item) => item.workoutId === workout._id,
-            )?.workoutCompleted ?? false;
+            getIsWorkoutCompleted(
+              workoutProgress,
+            );
 
           const isSelected =
-            selectedWorkoutId === workout._id;
+            selectedWorkoutId ===
+            currentWorkoutId;
 
           return (
             <button
@@ -71,13 +189,18 @@ export function WorkoutPicker({
               type="button"
               className="workoutPickerItem"
               onClick={() =>
-                setSelectedWorkoutId(workout._id)
+                setSelectedWorkoutId(
+                  currentWorkoutId,
+                )
               }
             >
               <span
                 className={[
                   "workoutPickerRadio",
-                  isCompleted || isSelected
+                  isCompleted
+                    ? "completed"
+                    : "",
+                  !isCompleted && isSelected
                     ? "selected"
                     : "",
                 ]
@@ -92,7 +215,9 @@ export function WorkoutPicker({
 
                 {workoutText.description && (
                   <span className="workoutPickerDescription">
-                    {workoutText.description}
+                    {
+                      workoutText.description
+                    }
                   </span>
                 )}
               </span>

@@ -199,31 +199,76 @@ button {
 
 .primaryButton,
 .secondaryButton {
-  width: 100%;
-  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  border-radius: 24px;
-  border: 0;
+  padding: 16px 26px;
+  min-height: 52px;
+
+  border-radius: 46px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  text-decoration: none;
 
   cursor: pointer;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease;
 }
 
+/* ---------- Primary ---------- */
+
 .primaryButton {
-  background: #bcec30;
+  border: none;
+  background: #BCEC30;
+  color: #000;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #C6FF00;
+  color: #000;
+}
+
+.primaryButton:active:not(:disabled) {
+  background: #000;
+  color: #FFF;
 }
 
 .primaryButton:disabled {
+  background: #F7F7F7;
+  color: #C4C4C4;
   cursor: default;
-  opacity: 0.55;
 }
+
+/* ---------- Secondary ---------- */
 
 .secondaryButton {
-  border: 1px solid #111;
-  background: #fff;
-  padding: 16px 26px;
-  border-radius: 46px;
+  background: #FFF;
+  color: #000;
+  border: 1px solid #000;
 }
 
+.secondaryButton:hover:not(:disabled) {
+  background: #F7F7F7;
+  color: #000;
+}
+
+.secondaryButton:active:not(:disabled) {
+  background: #000;
+  color: #FFF;
+  border-color: #000;
+}
+
+.secondaryButton:disabled {
+  background: #FFF;
+  color: #C4C4C4;
+  border-color: #C4C4C4;
+  cursor: default;
+}
 .cardAction {
   margin-top: 16px;
 }
@@ -708,21 +753,18 @@ button {
   width: 460px;
   height: 609px;
   padding: 40px;
-
   flex-direction: column;
   align-items: stretch;
-
+  gap: 48px;
   border-radius: 30px;
   background: #fff;
   box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
 }
 
 .workoutPickerTitle {
-  margin: 0 0 48px;
-  padding: 0 32px 0 0;
-
+  margin: 0;
+  padding-right: 34px;
   color: #000;
-  font-family: Roboto, Arial, sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 100%;
@@ -731,78 +773,103 @@ button {
 
 .workoutPickerList {
   width: 100%;
+  min-height: 0;
   max-height: 280px;
-  padding-right: 8px;
-
-  overflow-x: hidden;
   overflow-y: auto;
-
+  padding-right: 10px;
   scrollbar-width: thin;
   scrollbar-color: #000 transparent;
 }
 
-.workoutPickerList::-webkit-scrollbar {
-  width: 5px;
-}
-
-.workoutPickerList::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.workoutPickerList::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: #000;
-}
+.workoutPickerList::-webkit-scrollbar { width: 5px; }
+.workoutPickerList::-webkit-scrollbar-track { background: transparent; }
+.workoutPickerList::-webkit-scrollbar-thumb { border-radius: 10px; background: #000; }
 
 .workoutPickerItem {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-
   width: 100%;
-  min-height: 57px;
-  padding: 7px 0;
-
+  padding: 9px 0;
+  gap: 10px;
+  align-items: flex-start;
   border: 0;
   border-bottom: 1px solid #c4c4c4;
   border-radius: 0;
-
   background: transparent;
   color: #000;
-
-  font-family: Roboto, Arial, sans-serif;
   text-align: left;
   cursor: pointer;
 }
 
-.workoutPickerItem:first-child {
-  padding-top: 0;
-}
-
-.workoutPickerItem:last-child {
-  border-bottom: 0;
-}
+.workoutPickerItem:first-child { padding-top: 0; }
+.workoutPickerItem:last-child { border-bottom: 0; }
 
 .workoutPickerRadio {
   position: relative;
-
   width: 18px;
   height: 18px;
   margin-top: 2px;
-
   flex: 0 0 18px;
-
   border: 1.5px solid #000;
   border-radius: 50%;
-  background: #fff;
 }
 
-.workoutPickerRadio.selected {
+.workoutPickerRadio.selected { border-color: #bcec30; background: #bcec30; }
+
+.workoutPickerRadio.selected::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 7px;
+  height: 4px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+}
+
+.workoutPickerText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.workoutPickerName {
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 115%;
+}
+
+.workoutPickerDescription {
+  margin-top: 4px;
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.workoutPickerStart {
+  width: 100%;
+  height: 44px;
+  margin-top: auto;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 46px;
+  background: #bcec30;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.workoutPickerStart:disabled { cursor: default; opacity: 0.55; }
+
+.workoutPickerRadio.completed {
   border-color: #bcec30;
   background: #bcec30;
 }
 
-.workoutPickerRadio.selected::after {
+.workoutPickerRadio.completed::after {
   content: "";
 
   position: absolute;
@@ -816,57 +883,6 @@ button {
   border-left: 2px solid #fff;
 
   transform: rotate(-45deg);
-}
-
-.workoutPickerText {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.workoutPickerName {
-  display: block;
-
-  color: #000;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 110%;
-}
-
-.workoutPickerDescription {
-  display: block;
-
-  color: #000;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 110%;
-}
-
-.workoutPickerStart {
-  width: 100%;
-  height: 44px;
-  margin-top: auto;
-  flex-shrink: 0;
-
-  border: 0;
-  border-radius: 46px;
-
-  background: #bcec30;
-  color: #000;
-
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 100%;
-
-  cursor: pointer;
-}
-
-.workoutPickerStart:disabled {
-  cursor: default;
-  opacity: 0.55;
 }
 
 .videoWrap {
@@ -921,6 +937,285 @@ button {
 .progressInputs label {
   display: grid;
   gap: 8px;
+}
+
+
+/* =========================
+   МОДАЛЬНОЕ ОКНО ПРОГРЕССА
+========================= */
+
+.progressForm {
+  display: flex;
+  width: 420px;
+  max-height: min(600px, calc(100vh - 40px));
+  padding: 40px;
+
+  flex-direction: column;
+  align-items: stretch;
+
+  overflow: hidden;
+
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.2);
+}
+
+.progressFormTitle {
+  margin: 0 0 36px;
+
+  color: #000;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.progressFormFields {
+  display: flex;
+  min-height: 0;
+  padding-right: 12px;
+
+  flex-direction: column;
+  gap: 20px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #000 transparent;
+}
+
+.progressFormFields::-webkit-scrollbar {
+  width: 5px;
+}
+
+.progressFormFields::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.progressFormFields::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #000;
+}
+
+.progressFormField {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressFormLabel {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.progressFormField input {
+  width: 100%;
+  height: 42px;
+  padding: 10px 14px;
+
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+
+  background: #fff;
+  color: #000;
+
+  font-size: 14px;
+  outline: none;
+}
+
+.progressFormField input:focus {
+  border-color: #777;
+}
+
+.progressFormButton {
+  width: 100%;
+  height: 44px;
+  margin-top: 30px;
+
+  flex-shrink: 0;
+
+  border: 0;
+  border-radius: 46px;
+
+  background: #bcec30;
+  color: #000;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  cursor: pointer;
+}
+
+.progressFormButton:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.modal:has(.progressForm) {
+  width: auto;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+
+  overflow: visible;
+
+  border-radius: 30px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.modal:has(.progressForm) .modalClose {
+  top: 16px;
+  right: 18px;
+}
+
+@media (max-width: 600px) {
+  .progressForm {
+    width: min(343px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    padding: 30px;
+  }
+
+  .progressFormTitle {
+    margin-bottom: 28px;
+
+    font-size: 24px;
+    line-height: 110%;
+  }
+
+  .progressFormFields {
+    gap: 16px;
+    padding-right: 8px;
+  }
+
+  .progressFormLabel {
+    font-size: 12px;
+  }
+
+  .progressFormField input {
+    height: 36px;
+    padding: 8px 12px;
+
+    font-size: 13px;
+  }
+
+  .progressFormButton {
+    height: 40px;
+    margin-top: 22px;
+
+    font-size: 14px;
+  }
+
+  .modal:has(.progressForm) .modalClose {
+    top: 12px;
+    right: 14px;
+  }
+}
+
+/* =========================
+   УСПЕШНОЕ СОХРАНЕНИЕ ПРОГРЕССА
+========================= */
+
+.progressSuccess {
+  display: flex;
+  width: 400px;
+  min-height: 258px;
+  padding: 40px;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.2);
+
+  text-align: center;
+}
+
+.progressSuccessTitle {
+  margin: 0;
+
+  color: #000;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 110%;
+}
+
+.progressSuccessCheck {
+  position: relative;
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+  background: #bcec30;
+}
+
+.progressSuccessCheck::after {
+  content: "";
+
+  position: absolute;
+  top: 14px;
+  left: 13px;
+
+  width: 21px;
+  height: 11px;
+
+  border-bottom: 4px solid #fff;
+  border-left: 4px solid #fff;
+
+  transform: rotate(-45deg);
+}
+
+.modal:has(.progressSuccess) {
+  width: auto;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+
+  overflow: visible;
+
+  border-radius: 30px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.modal:has(.progressSuccess) .modalClose {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .progressSuccess {
+    width: min(280px, calc(100vw - 48px));
+    min-height: 180px;
+    padding: 28px;
+    gap: 20px;
+  }
+
+  .progressSuccessTitle {
+    font-size: 24px;
+  }
+
+  .progressSuccessCheck {
+    width: 42px;
+    height: 42px;
+  }
+
+  .progressSuccessCheck::after {
+    top: 12px;
+    left: 11px;
+
+    width: 18px;
+    height: 9px;
+
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+  }
 }
 
 /* =========================

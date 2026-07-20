@@ -25,64 +25,64 @@
 
 .brand span {
   padding: 0;
+
   font-size: 18px;
   line-height: 110%;
 }
 
+/* =========================
+   КНОПКА ВОЙТИ
+========================= */
 
 .loginButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  min-height: 40px;
   padding: 8px 16px;
-  border: 0;
+
+  border: none;
   border-radius: 46px;
+
   background: #bcec30;
-
   color: #000;
-  font-size: 16px;
-  line-height: 110%;
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-}
 
-.userWrap {
-  position: relative;
-}
-
-.profileIcon {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-}
-
-
-.arrowIcon {
-  width: 12px;
-  height: 8px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.arrowIconOpen {
-  transform: rotate(180deg);
-}
-
-
-
-.userName {
-  display: block;
-  max-width: 180px;
-  overflow: hidden;
-
-  color: #000;
   font-size: 16px;
   font-weight: 400;
   line-height: 110%;
-  text-overflow: ellipsis;
+  text-decoration: none;
   white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.loginButton:hover:not(:disabled) {
+  background: #c6ff00;
+  color: #000;
+}
+
+.loginButton:active:not(:disabled) {
+  background: #000;
+  color: #fff;
+}
+
+.loginButton:disabled {
+  background: #f7f7f7;
+  color: #c4c4c4;
+  cursor: default;
+}
+
+/* =========================
+   ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ
+========================= */
+
+.userWrap {
+  position: relative;
 }
 
 .userButton {
@@ -90,75 +90,197 @@
   align-items: center;
   gap: 8px;
 
-  padding: 0;
-  border: 0;
-  background: transparent;
+  min-height: 40px;
+  padding: 4px 8px;
 
+  border: none;
+  border-radius: 46px;
+
+  background: transparent;
   color: #000;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
+.userButton:hover {
+  background: #c6ff00;
+  color: #000;
+}
 
+.userButton:active {
+  background: #000;
+  color: #fff;
+}
 
+.profileIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 
+  transition: filter 0.2s ease;
+}
+
+.arrowIcon {
+  width: 12px;
+  height: 8px;
+  flex-shrink: 0;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.arrowIconOpen {
+  transform: rotate(180deg);
+}
+
+.userName {
+  display: block;
+  max-width: 180px;
+  overflow: hidden;
+
+  color: inherit;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 110%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userButton:active .profileIcon,
+.userButton:active .arrowIcon {
+  filter: brightness(0) invert(1);
+}
+
+/* =========================
+   ВЫПАДАЮЩЕЕ МЕНЮ
+========================= */
 
 .menu {
   position: absolute;
-  z-index: 20;
-  top: 45px;
+  top: 48px;
   right: 0;
+  z-index: 20;
 
   display: grid;
   gap: 10px;
 
   width: 240px;
-  padding: 18px;
-  border-radius: 16px;
+  padding: 28px;
 
+  border-radius: 30px;
   background: #fff;
-  box-shadow: 0 8px 30px #0002;
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
 }
 
 .menu button {
-  padding: 10px;
-  border: 0;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background: #f4f4f4;
-  text-align: left;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 20px;
+
+  border-radius: 46px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 110%;
+  text-align: center;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
+/* Кнопка "Мой профиль" */
+.menu button:first-of-type {
+  border: none;
+  background: #bcec30;
+  color: #000;
+}
+
+.menu button:first-of-type:hover:not(:disabled) {
+  background: #c6ff00;
+}
+
+.menu button:first-of-type:active:not(:disabled) {
+  background: #000;
+  color: #fff;
+}
+
+/* Кнопка "Выйти" */
+.menu button:last-of-type {
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+}
+
+.menu button:last-of-type:hover:not(:disabled) {
+  background: #f7f7f7;
+  color: #000;
+}
+
+.menu button:last-of-type:active:not(:disabled) {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+.menu button:disabled {
+  border-color: #c4c4c4;
+  background: #f7f7f7;
+  color: #c4c4c4;
+  cursor: default;
+}
+
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
 @media (max-width: 600px) {
-   .header {
+  .header {
     align-items: center;
     margin-top: 0;
   }
 
-   .brand {
+  .brand {
     flex-direction: row;
     flex-shrink: 0;
     gap: 0;
   }
 
-   .brand img {
+  .brand img {
     width: 220px;
     height: 35px;
   }
-
 
   .brand span {
     display: none;
   }
 
- .loginButton {
+  .loginButton {
+    min-height: 36px;
     flex-shrink: 0;
+
     padding: 8px 16px;
+
     font-size: 16px;
   }
 
-   .userButton {
+  .userButton {
+    min-height: 40px;
     gap: 8px;
+    padding: 4px 6px;
   }
 
   .profileIcon {
@@ -166,14 +288,18 @@
     height: 32px;
   }
 
-   .userName {
-     display: none;
+  .userName {
+    display: none;
   }
 
-   .arrowIcon {
+  .arrowIcon {
     width: 12px;
     height: 8px;
-    
+  }
+
+  .menu {
+    top: 46px;
+    width: min(240px, calc(100vw - 32px));
   }
 }
 
@@ -184,7 +310,14 @@
   }
 
   .loginButton {
+    min-height: 34px;
     padding: 7px 12px;
+
     font-size: 14px;
+  }
+
+  .userButton {
+    min-height: 36px;
+    padding: 2px 4px;
   }
 }
