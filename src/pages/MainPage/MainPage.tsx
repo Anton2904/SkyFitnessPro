@@ -5,6 +5,7 @@ import type { Course } from "../../types";
 import { Header } from "../../components/Header/Header";
 import { CourseCard } from "../../components/CourseCard/CourseCard";
 import { Loader } from "../../components/Loader/Loader";
+import heroArrow from "../../assets/hero-arrow.svg";
 
 export function MainPage() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -26,13 +27,21 @@ export function MainPage() {
             <span>Начните заниматься спортом </span>
             <span>и улучшите качество жизни</span>
           </h1>
+
           <div className="heroSticker">
-            <p>Измени свое
-            
-            тело за полгода!</p>
-            < img className="heroArrow" src="src/assets/hero-arrow.svg" alt="Arrow" />
+            <p>
+              Измени свое
+              <br />
+              тело за полгода!
+            </p>
+
+            <img
+              className="heroArrow"
+              src={heroArrow}
+              alt=""
+              aria-hidden="true"
+            />
           </div>
-          
         </section>
 
         {error && <p className="pageError">{error}</p>}
