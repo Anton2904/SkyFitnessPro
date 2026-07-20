@@ -163,34 +163,57 @@ button {
 
 .courseMeta {
   display: flex;
-  align-items: flex-start;
-  align-self: stretch;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 6px;
+
+  width: 100%;
 }
 
 .courseMeta_calendar,
-.courseMeta_time {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  padding: 10px;
-
-  border-radius: 50px;
-  background: #f7f7f7;
-}
-
+.courseMeta_time,
 .difficulty {
   display: inline-flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 6px;
 
   width: fit-content;
-  margin-top: 6px;
+  min-width: max-content;
   padding: 10px;
+
+  flex: 0 0 auto;
 
   border-radius: 50px;
   background: #f7f7f7;
+
+  font-size: 16px;
+  line-height: 110%;
+  white-space: nowrap;
+}
+
+
+.difficulty {
+  margin-top: 0;
+}
+
+.courseMeta_calendar img,
+.courseMeta_time img,
+.difficulty img {
+  display: block;
+
+  width: 20px;
+  height: 20px;
+
+  flex: 0 0 20px;
+  object-fit: contain;
+}
+
+.courseMeta_calendar span,
+.courseMeta_time span,
+.difficulty span {
+  display: block;
+  white-space: nowrap;
 }
 
 /* =========================
@@ -361,6 +384,14 @@ button {
   display: flex;
   flex-direction: column;
   gap: 48px;
+
+  width: 420px;
+  padding: 38px;
+
+  border-radius: 30px;
+  background: #fff;
+
+  box-shadow: 0 4px 67px -12px rgba(0, 0, 0, 0.13);
 }
 
 .authLogo {

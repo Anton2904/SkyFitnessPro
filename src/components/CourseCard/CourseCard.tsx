@@ -10,7 +10,9 @@ import bodyflex from "../../assets/courses/bodyflex.png";
 
 import addIcon from "../../assets/Add-in-Circle.svg";
 import removeIcon from "../../assets/Remove-in-Circle.svg";
-
+import calendarIcon from "../../assets/Calendar.svg";
+import clockIcon from "../../assets/Time.svg";
+import levelIcon from "../../assets/complexity.svg";
 
 
 const images: Record<string, string> = {
@@ -59,21 +61,19 @@ const courseAdded =
 
         <div className="courseMeta">
             <div className="courseMeta_calendar">
-            <img src="src/assets/Calendar.svg" alt="Calendar" />
+            <img src={calendarIcon} alt="" />
             <span>{course.durationInDays} дней</span>
-            </div>
-            <div className="courseMeta_time">
-            <img src="src/assets/Time.svg" alt="Clock" />
-            <span> 
-            {course.dailyDurationInMinutes.from}-{course.dailyDurationInMinutes.to} мин/день
-          </span>
-            </div>
         </div>
 
-        <div className="difficulty"> 
-            <img src="src/assets/complexity.svg" alt="Level" />
-            <span>{course.difficulty}</span>    
-        </div>
+        <div className="courseMeta_time">
+        <img src={clockIcon} alt="" />
+          <span> {course.dailyDurationInMinutes.from}-{course.dailyDurationInMinutes.to} мин/день</span>
+            </div>
+
+          <div className="difficulty">
+            <img src={levelIcon} alt="" />
+            <span>{course.difficulty}</span>
+          </div>
 
         {typeof progress === "number" && (
           <>
@@ -89,6 +89,7 @@ const courseAdded =
             {actionLabel}
           </button>
         )}
+      </div>
       </div>
     </article>
   );
