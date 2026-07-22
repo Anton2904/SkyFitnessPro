@@ -23,6 +23,7 @@ import { Modal } from "../../components/Modal/Modal";
 import { WorkoutPicker } from "../../components/WorkoutPicker/WorkoutPicker";
 
 import { useAuth } from "../../context/AuthContext";
+import { calculateCourseProgress } from "../../utils/progress";
 
 import profilePhoto from "../../assets/Profile-foto.svg";
 
@@ -40,6 +41,10 @@ export function ProfilePage() {
     Record<string, CourseProgress>
   >({});
 
+  const [workoutsByCourse, setWorkoutsByCourse] = useState<
+    Record<string, Workout[]>
+  >({});
+
   const [picker, setPicker] =
     useState<WorkoutPickerState | null>(null);
 
@@ -53,6 +58,7 @@ export function ProfilePage() {
     if (!user) {
       setCourses([]);
       setProgress({});
+      setWorkoutsByCourse({});
       setPageLoading(false);
       return;
     }
@@ -80,32 +86,25 @@ export function ProfilePage() {
 
         setCourses(selectedCourses);
 
-        const progressEntries = await Promise.all(
+        const courseDataEntries = await Promise.all(
           selectedCourses.map(async (course) => {
-            try {
-              const courseProgress =
-                await getCourseProgress(course._id);
-
-              return [
-                course._id,
-                {
-                  ...courseProgress,
-                  workoutsProgress:
-                    courseProgress?.workoutsProgress ?? [],
-                },
-              ] as const;
-            } catch {
-              const emptyProgress: CourseProgress = {
+            const [courseProgress, workouts] = await Promise.all([
+              getCourseProgress(course._id).catch(() => ({
                 courseId: course._id,
                 courseCompleted: false,
                 workoutsProgress: [],
-              };
+              } as CourseProgress)),
+              getCourseWorkouts(course._id).catch(() => [] as Workout[]),
+            ]);
 
-              return [
-                course._id,
-                emptyProgress,
-              ] as const;
-            }
+            return {
+              courseId: course._id,
+              progress: {
+                ...courseProgress,
+                workoutsProgress: courseProgress?.workoutsProgress ?? [],
+              },
+              workouts,
+            };
           }),
         );
 
@@ -114,7 +113,14 @@ export function ProfilePage() {
         }
 
         setProgress(
-          Object.fromEntries(progressEntries),
+          Object.fromEntries(
+            courseDataEntries.map((entry) => [entry.courseId, entry.progress]),
+          ),
+        );
+        setWorkoutsByCourse(
+          Object.fromEntries(
+            courseDataEntries.map((entry) => [entry.courseId, entry.workouts]),
+          ),
         );
       } catch (requestError: unknown) {
         if (isActive) {
@@ -144,29 +150,10 @@ export function ProfilePage() {
     return <Navigate to="/" replace />;
   }
 
-  const getCourseProgressPercent = (
-    course: Course,
-  ): number => {
-    const courseProgress =
-      progress[course._id];
-
-    const workoutsProgress =
-      courseProgress?.workoutsProgress ?? [];
-
-    if (workoutsProgress.length === 0) {
-      return 0;
-    }
-
-    const completedWorkouts =
-      workoutsProgress.filter(
-        (workoutProgress) =>
-          workoutProgress.workoutCompleted,
-      ).length;
-
-    return Math.round(
-      (completedWorkouts /
-        workoutsProgress.length) *
-        100,
+  const getCourseProgressPercent = (course: Course): number => {
+    return calculateCourseProgress(
+      workoutsByCourse[course._id] ?? [],
+      progress[course._id],
     );
   };
 
@@ -200,6 +187,11 @@ export function ProfilePage() {
         [course._id]: normalizedProgress,
       }));
 
+      setWorkoutsByCourse((current) => ({
+        ...current,
+        [course._id]: workouts ?? [],
+      }));
+
       setPicker({
         courseId: course._id,
         workouts: workouts ?? [],
@@ -230,13 +222,15 @@ export function ProfilePage() {
       );
 
       setProgress((currentProgress) => {
-        const nextProgress = {
-          ...currentProgress,
-        };
-
+        const nextProgress = { ...currentProgress };
         delete nextProgress[courseId];
-
         return nextProgress;
+      });
+
+      setWorkoutsByCourse((current) => {
+        const next = { ...current };
+        delete next[courseId];
+        return next;
       });
 
       if (picker?.courseId === courseId) {
@@ -359,8 +353,11 @@ export function ProfilePage() {
                             : "Начать тренировку"
                       }
                       onAction={() => {
-                        void openWorkoutPicker(
-                          course,
+                        void openWorkoutPicker(course);
+                      }}
+                      onCourseRemoved={(courseId) => {
+                        setCourses((current) =>
+                          current.filter((item) => item._id !== courseId),
                         );
                       }}
                     />

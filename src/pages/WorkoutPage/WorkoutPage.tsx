@@ -189,7 +189,16 @@ export function WorkoutPage() {
                   values,
                 );
 
-                await load();
+                const completed = workout.exercises.every(
+                  (exercise, index) =>
+                    (values[index] ?? 0) >= exercise.quantity,
+                );
+
+                setProgress({
+                  workoutId,
+                  workoutCompleted: completed,
+                  progressData: values,
+                });
 
                 setProgressModalOpen(false);
                 setSuccessModalOpen(true);
